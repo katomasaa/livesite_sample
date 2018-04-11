@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/livesite.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/org-apache-commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/lib/jaxrs-ri/lib/jersey-client.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/lib/jaxrs-ri/api/javax.ws.rs-api-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/livesite-runtime.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/bcmail-jdk15on-1.52.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/bcpkix-jdk15on-1.52.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/bcprov-jdk15on-1.52.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/mail.jar"/>
+	<classpathentry kind="lib" path="C:/docs/workspace/sample_training/lib/rulesengine.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
