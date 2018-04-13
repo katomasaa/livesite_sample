@@ -17,9 +17,13 @@
 package com.sample.livesite.runtime.controller;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
 
 import com.interwoven.livesite.model.rule.Segment;
+import com.interwoven.livesite.model.rule.SegmentUtils;
 import com.interwoven.livesite.p13n.LoginUtils;
 import com.interwoven.livesite.p13n.model.UserProfile;
 import com.interwoven.livesite.runtime.RequestContext;
@@ -117,7 +121,14 @@ public class SampleLoginController extends LoginControllerBase
           profile.setFirstName(bn.getFirstName());
           profile.setLastName(bn.getLastName());
           
-          LoginUtils.applySegments(context, profile);
+          // apply segment 
+          String seg = bn.getSegment();
+          if(seg != null && seg.length() > 0) {
+			  Set<String> segmentNames = new HashSet<String>();
+			  segmentNames.add(seg);
+			  SortedSet<Segment> segments = SegmentUtils.buildSegmentsFromNames(context, segmentNames.iterator());
+			  profile.setSegments(segments);
+          }
 
       }
       

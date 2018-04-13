@@ -14,6 +14,7 @@ public class UsersBean implements Serializable{
     private String firstName;
     private String lastName;
     private Date birthDate;
+    private String segment;
 
     
     public UsersBean() {
@@ -22,6 +23,7 @@ public class UsersBean implements Serializable{
     	firstName = "";
     	lastName ="";
     	birthDate = null;
+    	segment ="";
     }
     
     public String getPassword() {
@@ -53,6 +55,12 @@ public class UsersBean implements Serializable{
     }
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+    public String getSegment() {
+        return segment;
+    }
+    public void setSegment(String segment) {
+        this.segment = segment;
     }
     
 }

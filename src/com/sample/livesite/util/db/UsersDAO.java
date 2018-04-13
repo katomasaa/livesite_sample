@@ -94,6 +94,7 @@ public class UsersDAO extends baseDAO{
 	            bean.setFirstName(rs.getString("first_name")); 
 	            bean.setLastName(rs.getString("last_name")); 
 	            bean.setBirthDate(rs.getDate("birth_date"));
+	            bean.setSegment(rs.getString("segment"));
 	            
 	            ret.add(bean);
 	        }
