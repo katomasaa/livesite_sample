@@ -92,5 +92,35 @@ public class ColumnExternal {
 			return doc;
 	    }
 
+	  public Document getSearchColumnId(RequestContext context)
+	  {
+		  	BaseUserSession session = ((BaseUserSession) context.getSession());
+		  	
+			String msg = "";
+
+			// Create an empty document
+			Document doc = Dom4jUtils.newDocument();
+			Element root = doc.addElement("ExRoot");
+			
+			String key = (String)context.getRequest().getAttribute("searchkey");
+			List<String> result = (List<String>)context.getRequest().getAttribute("searchresult"); 
+			if(result != null) {
+				   root.addElement("searchkey").addCDATA(key);
+					Element sres = root.addElement("searchresult");
+					
+					if(result.size() > 0) {
+						for(Object id : result) {
+							LOGGER.debug("getColumnDetail ADD" + id.toString());
+							sres.addElement("id").addCDATA(id.toString());						
+						}
+					}else {
+						
+						sres.addElement("noresult").addCDATA("検索結果：0件");						
+					}
+			 }
+			 
+			 LOGGER.debug(doc.asXML());
+			return doc;
+	    }
 	  
 }

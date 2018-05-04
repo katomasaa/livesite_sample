@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.SortedSet;
@@ -405,12 +406,33 @@ public class SampleControllers
 	  return fa;
   }
 
+  public ForwardAction doColumnSearch(RequestContext context)
+  {
+	  BaseUserSession session = ((BaseUserSession) context.getSession());
+      ForwardAction fa;
+      
+   	  LOGGER.warn("Executing doColumnSearch");
+
+   	  String key = context.getRequest().getParameter("searchkey");
+      if( key != null && key.length() > 0) {
+    	  ColumnDAO dao = new ColumnDAO();
+    	  List<String> result = dao.GetColumnIdByFulltext(key, null);
+    	  context.getRequest().setAttribute("searchresult", result);
+    	  context.getRequest().setAttribute("searchkey", key);
+    	  LOGGER.warn("Executing doColumnSearch result : " + result.size());
+      }
+      
+   	  LOGGER.warn("Executing doColumnSearch : seachkey  >>> " + key);
+	  
+	  return null;
+  }
+
   /**
    * Demonstrate usage of Scope attribute
    *
    * local will create this class every time and value echoed will always be 'initial'
    * session will be 'initial' first time and then 'set' for the given user (until session cookie is cleared)
-   * application will be 'initial' first time and then always 'set' until server reset
+   * application will be 'initial' first time and then always 'szet' until server reset
    *
    * @param context RequestContext
    * @return null always
