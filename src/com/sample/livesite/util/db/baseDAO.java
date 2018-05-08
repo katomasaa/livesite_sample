@@ -9,6 +9,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.sample.livesite.util.AppConfig;
+
 /**
  * DAO
  */
@@ -20,7 +22,7 @@ public class baseDAO {
 
     private static final transient Log LOGGER = LogFactory.getLog(baseDAO.class);
 
-    private String dbname = "tsdb_custom";
+    private String dbname = AppConfig.getString("DB_NAME_DEFAULT");
     
     public baseDAO() {
     	
@@ -57,6 +59,7 @@ public class baseDAO {
         } catch (SQLException sqle) {
         	LOGGER.error("[baseDAO] Error : " + sqle.getMessage() + "\n" + sqle.getStackTrace());
             sqle.printStackTrace();
+        } finally {
             this.close();
         }
         return cnt;
@@ -65,7 +68,7 @@ public class baseDAO {
     protected ResultSet executeQuery(String sql, List<String> params) {
     	
         try {
-            // データベースと接続（本来はユーザやパスワードも別管理にしておくのが理想）
+            // データベースと接続
             con = DBManager.getConnection(dbname);
 
             // SQL文を生成
@@ -88,7 +91,7 @@ public class baseDAO {
         } catch (SQLException sqle) {
         	LOGGER.error("[baseDAO] Error : " + sqle.getMessage() + "\n" + sqle.getStackTrace());
             sqle.printStackTrace();
-            this.close();
+        } finally {
         }
         return rs;
     }

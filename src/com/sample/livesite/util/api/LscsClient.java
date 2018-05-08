@@ -14,6 +14,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 
 import com.sample.livesite.util.db.TaxDAO;
+import com.sample.livesite.util.AppConfig;
 
 public class LscsClient extends RESTClient{
 
@@ -21,7 +22,7 @@ public class LscsClient extends RESTClient{
 	
 	private String project = "";
 	
-	private final String lscsPath = "/lscs/v1/document";
+	private final String lscsPath = AppConfig.getString("LSCS_PATH");
 	private final String lscsPathForMeta = lscsPath + "$";
 	
 	public LscsClient(String project) {

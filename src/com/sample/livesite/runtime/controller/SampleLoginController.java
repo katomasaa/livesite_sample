@@ -32,6 +32,7 @@ import com.interwoven.livesite.runtime.impl.BaseRequestContext;
 import com.interwoven.livesite.runtime.impl.BaseUserSession;
 
 import com.sample.livesite.util.db.*;
+import com.sample.livesite.util.mongo.*;
 
 /**
  * Sample controller that uses hard coded values to check authentication
@@ -130,6 +131,10 @@ public class SampleLoginController extends LoginControllerBase
 			  profile.setSegments(segments);
           }
 
+          // debug
+          NewsDAO ndao = new NewsDAO();
+          List<NewsBean> news = ndao.findAll("custom", "ot_news_en");
+          
       }
       
 //      if (password.equals("password"))

@@ -103,6 +103,8 @@ public class UsersDAO extends baseDAO{
     		//log
     		LOGGER.error("Error : " + e.getMessage() + "\n" + e.getStackTrace());
 
+    	}finally {
+    		this.close();
     	}
     	
         return ret;

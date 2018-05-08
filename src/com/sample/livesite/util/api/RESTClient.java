@@ -17,15 +17,17 @@ import java.util.Map;
 
 import javax.ws.rs.client.WebTarget;
 
+import com.sample.livesite.util.AppConfig;
+
 public class RESTClient {
 
 	private static final transient Log LOGGER = LogFactory.getLog(RESTClient.class);
 	
 	private Client client = ClientBuilder.newClient();
 	
-	private String protocol = "http";  
-	private String host = "localhost";  
-	private String port = "1876";
+	private String protocol = AppConfig.getString("LSCS_PROTOCOL");  
+	private String host = AppConfig.getString("LSCS_HOST");  
+	private String port = AppConfig.getString("LSCS_PORT");
 		
 	public RESTClient(String protocol, String host, String port) {
 		this.protocol = protocol;

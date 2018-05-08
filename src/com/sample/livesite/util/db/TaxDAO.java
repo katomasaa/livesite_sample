@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.sample.livesite.util.AppConfig;
+
 /**
  * DAO
  */
@@ -16,7 +18,7 @@ public class TaxDAO extends baseDAO{
     private static final transient Log LOGGER = LogFactory.getLog(TaxDAO.class);
 
     public TaxDAO() {
-    	super("tsdb_lsds");
+    	super(AppConfig.getString("DB_NAME_LSDS"));
     }
     
 	public String GetTaxIdbyName(String tax, String name) {
