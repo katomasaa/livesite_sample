@@ -16,7 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,27 +34,23 @@ public class NewsDAO extends baseMongoDAO{
 
 	private static final transient Log LOGGER = LogFactory.getLog(NewsDAO.class);
 
-	public NewsDAO() {
+	private String dbname;
+	private String collname;
+	
+	public NewsDAO() {		
 		super();
+		
+		dbname = "custom";
+		collname = "ot_news";
 	}
 
-	public List<NewsBean> findAll(String dbname, String collname) {
+	public List<NewsBean> findAll() {
 		
 		MongoCursor cur = super.find(dbname, collname);
-		List<NewsBean> result = new ArrayList<NewsBean>();
+		List<NewsBean> result = null;
 		
 		try {
-			while (cur.hasNext()) {
-				Document doc = (Document)cur.next();
-			    LOGGER.debug("[NewsDAO] id :" + (String)doc.getString("title"));
-			    
-			    String key = (String)doc.getString("key");
-			    String url = (String)doc.getString("url");
-			    String title = (String)doc.getString("title");
-			    String content = (String)doc.getString("content");
-	
-			    result.add(new NewsBean(key, url, title, content));
-			}
+			result = this.setBean(cur);
 		}catch(Exception e){
     		//log
     		LOGGER.error("Error : " + e.getMessage() + "\n" + e.getStackTrace());
@@ -61,4 +59,43 @@ public class NewsDAO extends baseMongoDAO{
 		return result;
 	}
 	
+	public List<NewsBean> findByKey(String key) {
+		
+	    Map<String, String> params = new HashMap<String, String>();
+	    params.put("key", key);
+
+		MongoCursor cur = super.find(dbname, collname, params);
+		List<NewsBean> result = null;
+		
+		try {
+			result = this.setBean(cur);
+		}catch(Exception e){
+    		//log
+    		LOGGER.error("Error : " + e.getMessage() + "\n" + e.getStackTrace());
+		}
+
+		return result;
+	}
+	
+	private List<NewsBean> setBean(MongoCursor cur){
+
+		List<NewsBean> result = new ArrayList<NewsBean>();
+		
+		while (cur.hasNext()) {
+			Document doc = (Document)cur.next();
+		    LOGGER.debug("[NewsDAO] key :" + (String)doc.getString("key"));
+		    LOGGER.debug("[NewsDAO] url :" + (String)doc.getString("url"));
+		    
+		    String key = (String)doc.getString("key");
+		    String url = (String)doc.getString("url");
+		    String title = (String)doc.getString("title");
+		    
+		    List<String> tmp = (ArrayList)doc.get("content");
+		    String content = tmp.get(0);
+	
+		    result.add(new NewsBean(key, url, title, content));
+		}
+		
+		return result;
+	}
 }

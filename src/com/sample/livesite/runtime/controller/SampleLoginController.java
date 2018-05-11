@@ -133,7 +133,8 @@ public class SampleLoginController extends LoginControllerBase
 
           // debug
           NewsDAO ndao = new NewsDAO();
-          List<NewsBean> news = ndao.findAll("custom", "ot_news_en");
+          List<NewsBean> news = ndao.findAll();
+          context.getRequest().setAttribute("NewsList", news);
           
       }
       

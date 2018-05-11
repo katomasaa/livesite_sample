@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,6 +57,11 @@ public class baseMongoDAO {
     }
 
     protected MongoCursor find(String dbname, String collname) {
+    	return this.find(dbname, collname, null);
+    }
+ 
+
+    protected MongoCursor find(String dbname, String collname, Map<String, String> key) {
     	
     	MongoCursor<Document> cur = null;
     	
@@ -63,12 +69,28 @@ public class baseMongoDAO {
         	
         	MongoDatabase db = mongoClient.getDatabase(dbname);
         	MongoCollection<Document> collection = db.getCollection(collname);
-        	cur = collection.find().iterator();
+        	Document query = null;
         	
-        	while(cur.hasNext()) {
-        		Document doc = (Document)cur.next();
-        		LOGGER.debug(doc.getString("title"));
-            }        	
+        	if(key != null && !key.isEmpty()) {
+        		query = new Document();
+        		
+            	for(String tmpkey : key.keySet()) {
+            		query.append(tmpkey, key.get(tmpkey));
+            	}
+        	}
+        	
+        	if(query != null && !query.isEmpty()) {
+        		LOGGER.debug("[baseMongoDAO] Execute Find with query : " + query.toJson());
+        		cur = collection.find(query).iterator();
+        	}else {
+        		LOGGER.debug("[baseMongoDAO] Execute Find without query");
+        		cur = collection.find().iterator();
+        	}
+        	
+//        	while(cur.hasNext()) {
+//        		Document doc = (Document)cur.next();
+//        		LOGGER.debug(doc.getString("title"));
+//            }        	 
         	        	            
         } catch (Exception e) {
         	LOGGER.error("[baseMongoDAO] Error : " + e.getMessage() + "\n" + e.getStackTrace());
@@ -78,5 +100,5 @@ public class baseMongoDAO {
         }
         return cur;
     }
- 
+
 }
